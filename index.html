@@ -18,14 +18,11 @@
         <div class="player-column">
             <h2>Player 1</h2>
 
-            <!-- Section for Player 1 name input -->
-            <div class="player-section">
+            <!-- Inline section for Player 1 name and command points -->
+            <div class="player-section inline-section">
                 <label for="player1Name">Name: </label>
                 <input type="text" id="player1Name" placeholder="Enter Player 1's name">
-            </div>
 
-            <!-- Section for Player 1 command points dropdown -->
-            <div class="player-section">
                 <label for="player1CP">Command Points: </label>
                 <select id="player1CP">
                     <option value="0">0</option>
@@ -42,11 +39,17 @@
                 </select>
             </div>
 
+            <!-- Section for adding Player 1's Army Rule -->
+            <div class="player-section">
+                <label for="armyRule1">Enter Player 1's army rule: </label>
+                <input type="text" id="armyRule1">
+            </div>
+            
             <!-- Section for adding custom strings to Player 1's unit list -->
             <div class="player-section">
-                <label for="inputString1">Enter string for Player 1: </label>
+                <label for="inputString1">Enter units for Player 1: </label>
                 <input type="text" id="inputString1">
-                <button onclick="addString(1)">Add String</button>
+                <button onclick="addString(1)">Add Unit</button>
             </div>
 
             <!-- Unit list for Player 1 -->
@@ -78,14 +81,11 @@
         <div class="player-column">
             <h2>Player 2</h2>
 
-            <!-- Section for Player 2 name input -->
-            <div class="player-section">
+            <!-- Inline section for Player 2 name and command points -->
+            <div class="player-section inline-section">
                 <label for="player2Name">Name: </label>
                 <input type="text" id="player2Name" placeholder="Enter Player 2's name">
-            </div>
 
-            <!-- Section for Player 2 command points dropdown -->
-            <div class="player-section">
                 <label for="player2CP">Command Points: </label>
                 <select id="player2CP">
                     <option value="0">0</option>
@@ -102,11 +102,17 @@
                 </select>
             </div>
 
+            <!-- Section for adding Player 2's Army Rule -->
+            <div class="player-section">
+                <label for="armyRule2">Enter Player 2's army rule: </label>
+                <input type="text" id="armyRule2">
+            </div>
+
             <!-- Section for adding custom strings to Player 2's unit list -->
             <div class="player-section">
-                <label for="inputString2">Enter string for Player 2: </label>
+                <label for="inputString2">Enter units for Player 2: </label>
                 <input type="text" id="inputString2">
-                <button onclick="addString(2)">Add String</button>
+                <button onclick="addString(2)">Add Unit</button>
             </div>
 
             <!-- Unit list for Player 2 -->

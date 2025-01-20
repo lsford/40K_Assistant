@@ -8,6 +8,20 @@ body {
     font-size: 16px; /* Base font size */
 }
 
+/* CSS for inline section layout of name and command points */
+.inline-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.inline-section label {
+    margin-right: 10px;
+}
+.inline-section input, .inline-section select {
+    flex: 1;
+    margin-left: 10px;
+}
+
 /* Heading Styles */
 h1, h2, h3 {
     font-family: 'Impact', sans-serif; /* Bold font for headings */
