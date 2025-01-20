@@ -8,15 +8,23 @@
 </head>
 <body>
 
+    <!-- Main heading of the page -->
     <h1>Player Setup</h1>
 
+    <!-- Main container holding all player-related sections -->
     <div class="container">
+
+        <!-- Player 1 column -->
         <div class="player-column">
             <h2>Player 1</h2>
+
+            <!-- Section for Player 1 name input -->
             <div class="player-section">
                 <label for="player1Name">Name: </label>
                 <input type="text" id="player1Name" placeholder="Enter Player 1's name">
             </div>
+
+            <!-- Section for Player 1 command points dropdown -->
             <div class="player-section">
                 <label for="player1CP">Command Points: </label>
                 <select id="player1CP">
@@ -33,33 +41,50 @@
                     <option value="10">10</option>
                 </select>
             </div>
+
+            <!-- Section for adding custom strings to Player 1's unit list -->
             <div class="player-section">
                 <label for="inputString1">Enter string for Player 1: </label>
                 <input type="text" id="inputString1">
                 <button onclick="addString(1)">Add String</button>
             </div>
 
+            <!-- Unit list for Player 1 -->
             <h3>Unit List</h3>
             <ul id="stringList1"></ul>
 
+            <!-- Command phase section for Player 1 -->
             <h3>Command</h3>
             <ul id="commandList1" class="section-list"></ul>
+
+            <!-- Movement phase section for Player 1 -->
             <h3>Movement</h3>
             <ul id="movementList1" class="section-list"></ul>
+
+            <!-- Shooting phase section for Player 1 -->
             <h3>Shooting</h3>
             <ul id="shootingList1" class="section-list"></ul>
+
+            <!-- Charge phase section for Player 1 -->
             <h3>Charge</h3>
             <ul id="chargeList1" class="section-list"></ul>
+
+            <!-- Fight phase section for Player 1 -->
             <h3>Fight</h3>
             <ul id="fightList1" class="section-list"></ul>
         </div>
 
+        <!-- Player 2 column -->
         <div class="player-column">
             <h2>Player 2</h2>
+
+            <!-- Section for Player 2 name input -->
             <div class="player-section">
                 <label for="player2Name">Name: </label>
                 <input type="text" id="player2Name" placeholder="Enter Player 2's name">
             </div>
+
+            <!-- Section for Player 2 command points dropdown -->
             <div class="player-section">
                 <label for="player2CP">Command Points: </label>
                 <select id="player2CP">
@@ -76,28 +101,41 @@
                     <option value="10">10</option>
                 </select>
             </div>
+
+            <!-- Section for adding custom strings to Player 2's unit list -->
             <div class="player-section">
                 <label for="inputString2">Enter string for Player 2: </label>
                 <input type="text" id="inputString2">
                 <button onclick="addString(2)">Add String</button>
             </div>
 
+            <!-- Unit list for Player 2 -->
             <h3>Unit List</h3>
             <ul id="stringList2"></ul>
 
+            <!-- Command phase section for Player 2 -->
             <h3>Command</h3>
             <ul id="commandList2" class="section-list"></ul>
+
+            <!-- Movement phase section for Player 2 -->
             <h3>Movement</h3>
             <ul id="movementList2" class="section-list"></ul>
+
+            <!-- Shooting phase section for Player 2 -->
             <h3>Shooting</h3>
             <ul id="shootingList2" class="section-list"></ul>
+
+            <!-- Charge phase section for Player 2 -->
             <h3>Charge</h3>
             <ul id="chargeList2" class="section-list"></ul>
+
+            <!-- Fight phase section for Player 2 -->
             <h3>Fight</h3>
             <ul id="fightList2" class="section-list"></ul>
         </div>
     </div>
 
+    <!-- Link to JavaScript file containing interactivity logic -->
     <script src="script.js"></script>
 
 </body>
