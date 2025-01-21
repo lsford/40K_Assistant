@@ -1,120 +1,111 @@
 /* Global Styles */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Default font for the body */
-    background-color: #2e2e2e; /* Dark background for the entire page */
-    color: #f0f0f0; /* Light text color for contrast */
-    margin: 0; /* Remove default margin */
-    padding: 0; /* Remove default padding */
-    font-size: 16px; /* Base font size */
-}
-
-/* CSS for inline section layout of name and command points */
-.inline-section {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.inline-section label {
-    margin-right: 10px;
-}
-.inline-section input, .inline-section select {
-    flex: 1;
-    margin-left: 10px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #2e2e2e;
+    color: #f0f0f0;
+    margin: 0;
+    padding: 20px;
+    font-size: 16px;
+    min-height: 100vh;
 }
 
 /* Heading Styles */
 h1, h2, h3 {
-    font-family: 'Impact', sans-serif; /* Bold font for headings */
-    color: #d4af37; /* Gold-ish tone for headings */
-    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.9); /* Add shadow for text clarity */
+    font-family: 'Impact', sans-serif;
+    color: #d4af37;
+    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.9);
     font-weight: bold;
     line-height: 1.2;
-    text-align: center; /* Center-align all headings */
+    text-align: center;
 }
 
-/* Specific Heading Adjustments */
 h1 {
-    font-size: 3em; /* Increase main heading size */
-    margin-top: 30px;
-    margin-bottom: 20px;
-    padding: 10px 20px;
-    background-color: #333; /* Dark background for contrast */
-    border-radius: 10px; /* Rounded corners */
-    border: 3px solid #d4af37; /* Gold border for emphasis */
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin: 30px auto;
+    padding: 15px 20px;
+    background-color: #333;
+    border-radius: 10px;
+    border: 3px solid #d4af37;
+    max-width: 800px;
 }
 
 h2 {
-    font-size: 2.2em; /* Smaller size for subheadings */
-    border-bottom: 3px solid #d4af37; /* Add a gold line below */
-    padding-bottom: 10px; /* Space below text */
-    margin-top: 20px;
-    margin-bottom: 10px;
-    text-align: left; /* Align to the left */
+    font-size: clamp(1.8rem, 3vw, 2.2rem);
+    border-bottom: 3px solid #d4af37;
+    padding-bottom: 10px;
+    margin: 20px 0 15px;
+    text-align: left;
 }
 
 h3 {
-    font-size: 1.8em; /* Adjust size for phase headings */
-    margin-top: 20px;
-    margin-bottom: 10px;
-    text-align: left; /* Align left for consistency */
-    padding: 8px; /* Space inside the heading background */
-    background-color: #444; /* Slightly lighter background */
-    border-left: 5px solid #d4af37; /* Gold accent bar */
-    border-radius: 5px; /* Rounded corners */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Subtle shadow */
+    font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+    margin: 20px 0 10px;
+    text-align: left;
+    padding: 8px;
+    background-color: #444;
+    border-left: 5px solid #d4af37;
+    border-radius: 5px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 
 /* Container Layout */
 .container {
-    display: flex; /* Flexbox for layout */
-    justify-content: space-between; /* Space out columns */
-    margin: 30px; /* Add outer space */
-    flex-wrap: wrap; /* Allow wrapping on small screens */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 600px), 1fr));
+    gap: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
 }
+
 .player-column {
-    width: 48%; /* Set width of each player column */
-    padding: 10px; /* Inner spacing */
-    background: #444; /* Dark background for columns */
-    border-radius: 10px; /* Rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Subtle shadow */
-    margin-bottom: 20px; /* Space below each column */
+    background: #444;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    padding: clamp(15px, 2vw, 25px);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 .player-section {
-    margin-bottom: 15px; /* Space between sections within a column */
+    margin-bottom: 15px;
 }
 
 /* Input Fields & Buttons */
 input[type="text"], select {
-    width: 100%; /* Full width for inputs */
-    padding: 12px; /* Inner spacing */
-    background-color: #333; /* Dark background */
-    color: #f0f0f0; /* Light text */
-    border: 1px solid #777; /* Border color */
-    border-radius: 5px; /* Rounded corners */
-    font-size: 1em; /* Adjust font size */
+    width: 100%;
+    padding: 12px;
+    background-color: #333;
+    color: #f0f0f0;
+    border: 1px solid #777;
+    border-radius: 5px;
+    font-size: 1em;
+    box-sizing: border-box;
 }
 
 button {
-    padding: 12px 20px; /* Button padding */
-    background-color: #d4af37; /* Gold button background */
-    color: #fff; /* White text */
-    border: none; /* Remove default border */
-    border-radius: 5px; /* Rounded corners */
-    font-size: 1em; /* Adjust font size */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.3s ease; /* Smooth hover effect */
-    width: 100%; /* Full width button */
+    padding: 12px 20px;
+    background-color: #d4af37;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    margin-top: 10px;
 }
 
 button:hover {
-    background-color: #b89e2f; /* Darker gold on hover */
+    background-color: #b89e2f;
 }
 
 /* Section Lists */
 ul {
-    list-style-type: none; /* Remove default list bullets */
-    padding-left: 0; /* Remove default padding */
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
 }
 
 .string-item {
@@ -125,105 +116,118 @@ ul {
     background-color: #555;
     margin-bottom: 10px;
     border-radius: 5px;
-    gap: 20px; /* Add space between the text and the button */
+    gap: 20px;
 }
 
-
 .string-item label {
-    flex: 1; /* Allow label to grow as needed */
-    font-size: 1.1em; /* Slightly larger text */
-    color: #f0f0f0; /* Light text */
+    flex: 1;
+    font-size: 1.1em;
+    color: #f0f0f0;
+    word-break: break-word;
 }
 
 .string-item button {
-    background-color: #e74c3c; /* Red for remove button */
-    border-radius: 5px; /* Rounded corners */
-    padding: 5px 10px; /* Button padding */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.3s ease; /* Smooth hover effect */
+    background-color: #e74c3c;
+    border-radius: 5px;
+    padding: 8px 15px;
+    margin: 0;
+    min-width: 80px;
+    width: auto;
 }
 
 .string-item button:hover {
-    background-color: #c0392b; /* Darker red on hover */
+    background-color: #c0392b;
 }
 
 .string-item input[type="checkbox"] {
-    margin-right: 10px; /* Space between checkbox and label */
+    margin-right: 10px;
+    min-width: 20px;
+    height: 20px;
 }
 
-/* Dropdown styling */
-select {
-    background-color: #333; /* Dark dropdown background */
-    color: #f0f0f0; /* Light text */
-    border: 1px solid #777; /* Border color */
-    border-radius: 5px; /* Rounded corners */
-    font-size: 1em; /* Font size */
-    padding: 10px; /* Padding inside dropdown */
-}
-
-/* Responsive Design for mobile and small screens */
-@media (max-width: 768px) {
+/* Large Desktop Screens */
+@media (min-width: 1400px) {
     .container {
-        flex-direction: column; /* Stack columns vertically */
-        align-items: center; /* Center align content */
+        gap: 40px;
+    }
+    
+    .player-column {
+        padding: 30px;
+    }
+}
+
+/* Tablet and Medium Screens */
+@media (max-width: 1024px) {
+    body {
+        padding: 15px;
+    }
+
+    .container {
+        padding: 15px;
+        gap: 20px;
+    }
+}
+
+/* Mobile Screens */
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        padding: 10px;
+        gap: 15px;
     }
 
     .player-column {
-        width: 100%; /* Full width for small screens */
-        margin-bottom: 30px; /* Add spacing between stacked columns */
-    }
-
-    h1 {
-        font-size: 2.2em; /* Adjust heading size for small screens */
-        margin-top: 10px; /* Reduce top margin */
-    }
-
-    h2 {
-        font-size: 1.8em; /* Adjust subheading size */
-    }
-
-    h3 {
-        font-size: 1.4em; /* Adjust phase heading size */
-    }
-
-    input[type="text"], select {
-        font-size: 1em; /* Adjust font size for inputs */
-        padding: 10px; /* Adjust padding */
-    }
-
-    button {
-        width: 100%; /* Full width buttons */
-        font-size: 1.1em; /* Adjust font size */
+        padding: 15px;
     }
 
     .string-item {
-        padding: 10px; /* Adjust padding for list items */
-        font-size: 1em; /* Adjust font size */
+        flex-direction: column;
+        gap: 10px;
+        align-items: stretch;
     }
+
+    .string-item button {
+        width: 100%;
+    }
+
+    input[type="text"], select, button {
+        padding: 10px;
+        font-size: 16px; /* Prevent zoom on mobile */
+    }
+}.collapse-btn {
+    float: right;
+    background: #d4af37;
+    border: none;
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 20px;
+    line-height: 30px;
+    padding: 0;
+    margin: -5px 0;
 }
 
-/* Very small screens (e.g., mobile phones) */
-@media (max-width: 480px) {
-    h1 {
-        font-size: 1.8em; /* Smaller main heading size */
-    }
+.collapse-btn:hover {
+    background: #b89e2f;
+}
 
-    h2, h3 {
-        font-size: 1.3em; /* Smaller subheading sizes */
-    }
+.collapsible-content {
+    transition: max-height 0.3s ease-out;
+    max-height: 1000px;
+    overflow: hidden;
+}
 
-    .string-item {
-        font-size: 0.9em; /* Smaller font for list items */
-        padding: 8px; /* Reduced padding */
-    }
+.collapsible-content.collapsed {
+    max-height: 0;
+}
 
-    input[type="text"], select {
-        font-size: 0.9em; /* Smaller font for inputs */
-        padding: 8px; /* Reduced padding */
-    }
-
-    button {
-        font-size: 1em; /* Adjust button font size */
-        padding: 10px; /* Adjust button padding */
-    }
+.kills-counter button {
+    padding: 2px 8px;
+    margin: 0 2px;
+    width: auto;
 }
