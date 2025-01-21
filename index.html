@@ -1,16 +1,16 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Players with Multiple Sections and Command Points</title>
+    <title>Game Tracker</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
     <h1>Player Setup</h1>
 
     <div class="container">
+        <!-- Player 1 Column -->
         <div class="player-column">
             <h2>Player 1</h2>
             <div class="player-section">
@@ -34,11 +34,12 @@
                 </select>
             </div>
             <div class="player-section">
-                <label for="inputString1">Add Unit/Vehicle Type: </label>
+                <label for="inputString1">Add Unit/Vehicle: </label>
                 <input type="text" id="inputString1">
-                <button onclick="addString(1)">Add Unit</button>
-         </div>
+                <button onclick="GameTracker.addString(1)">Add Unit</button>
+            </div>
 
+            <!-- Section lists for Player 1 -->
             <h3>Unit List<button class="collapse-btn">-</button></h3>
             <div class="collapsible-content">
                 <ul id="stringList1"></ul>
@@ -65,6 +66,7 @@
             </div>
         </div>
 
+        <!-- Player 2 Column -->
         <div class="player-column">
             <h2>Player 2</h2>
             <div class="player-section">
@@ -88,11 +90,12 @@
                 </select>
             </div>
             <div class="player-section">
-                <label for="inputString2">Enter Unit/Vehicle: </label>
+                <label for="inputString2">Add Unit/Vehicle: </label>
                 <input type="text" id="inputString2">
-                <button onclick="addString(2)">Add Unit</button>
+                <button onclick="GameTracker.addString(2)">Add Unit</button>
             </div>
 
+            <!-- Section lists for Player 2 -->
             <h3>Unit List<button class="collapse-btn">-</button></h3>
             <div class="collapsible-content">
                 <ul id="stringList2"></ul>
@@ -117,15 +120,9 @@
             <div class="collapsible-content">
                 <ul id="fightList2"></ul>
             </div>
-<h3>Command<button class="collapse-btn">-</button></h3>
-<div class="collapsible-content">
-    <ul id="commandList1" class="section-list"></ul>
-</div>
-        
         </div>
     </div>
 
     <script src="script.js"></script>
-
 </body>
 </html>

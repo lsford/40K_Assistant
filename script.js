@@ -1,250 +1,246 @@
-function addString(playerNumber) {
-    let inputField, listElement, stringId;
-    if (playerNumber === 1) {
-        inputField = document.getElementById("inputString1");
-        listElement = document.getElementById("stringList1");
-        stringId = "string-" + listElement.children.length + "-1";
-    } else {
-        inputField = document.getElementById("inputString2");
-        listElement = document.getElementById("stringList2");
-        stringId = "string-" + listElement.children.length + "-2";
-    }
+// Namespace for the game tracker functionality
+const GameTracker = {
+    // Add a string/unit to the player's lists
+    addString(playerNumber) {
+        const inputField = document.getElementById(`inputString${playerNumber}`);
+        const listElement = document.getElementById(`stringList${playerNumber}`);
+        const inputValue = inputField.value.trim();
+        const stringId = `string-${listElement.children.length}-${playerNumber}`;
 
-    const inputValue = inputField.value.trim();
+        if (!inputValue) {
+            alert("Please enter a valid string.");
+            return;
+        }
 
-    if (inputValue) {
-        // Create string item for Unit List
+        // Create and add the main unit list item
+        this.createMainListItem(stringId, inputValue, listElement, playerNumber);
+        
+        // Add to other sections
+        this.addToSections(stringId, inputValue, playerNumber);
+
+        // Clear input field
+        inputField.value = "";
+    },
+
+    // Create the main list item with health and kills tracking
+    createMainListItem(stringId, inputValue, listElement, playerNumber) {
         const listItem = document.createElement("li");
         listItem.className = "string-item";
         listItem.id = stringId;
 
-        // Create container for unit info
-        const unitInfoContainer = document.createElement("div");
-        unitInfoContainer.style.display = "flex";
-        unitInfoContainer.style.alignItems = "center";
-        unitInfoContainer.style.gap = "10px";
-        unitInfoContainer.style.flex = "1";
+        const unitInfoContainer = this.createUnitInfoContainer(stringId, inputValue);
+        const removeButton = this.createRemoveButton(stringId, playerNumber);
 
-        const label = document.createElement("span");
-        label.textContent = inputValue;
-
-        // Create health control container
-        const healthContainer = document.createElement("div");
-        healthContainer.className = "health-controls";
-        healthContainer.style.display = "flex";
-        healthContainer.style.alignItems = "center";
-        healthContainer.style.gap = "5px";
-
-        const healthInput = document.createElement("input");
-        healthInput.type = "number";
-        healthInput.value = "100";
-        healthInput.min = "0";
-        healthInput.max = "100";
-        healthInput.style.width = "60px";
-        healthInput.onchange = function() {
-            updateUnitHealth(stringId, this.value);
-        };
-
-        const healthLabel = document.createElement("span");
-        healthLabel.textContent = "HP";
-
-        // Create kills counter container
-        const killsContainer = document.createElement("div");
-        killsContainer.className = "kills-counter";
-        killsContainer.style.display = "flex";
-        killsContainer.style.alignItems = "center";
-        killsContainer.style.gap = "5px";
-
-        const killsCount = document.createElement("span");
-        killsCount.textContent = "0";
-        killsCount.id = `${stringId}-kills`;
-        killsCount.style.minWidth = "20px";
-        killsCount.style.textAlign = "center";
-
-        const killsLabel = document.createElement("span");
-        killsLabel.textContent = "Kills";
-
-        const subtractKillButton = document.createElement("button");
-        subtractKillButton.textContent = "-";
-        subtractKillButton.style.padding = "2px 8px";
-        subtractKillButton.onclick = function() {
-            decrementKills(stringId);
-        };
-
-        const addKillButton = document.createElement("button");
-        addKillButton.textContent = "+";
-        addKillButton.style.padding = "2px 8px";
-        addKillButton.onclick = function() {
-            incrementKills(stringId);
-        };
-
-        // Add remove button
-        const removeButton = document.createElement("button");
-        removeButton.textContent = "Remove";
-        removeButton.onclick = function () { removeString(stringId, playerNumber); };
-
-        // Assemble the components
-        healthContainer.appendChild(healthInput);
-        healthContainer.appendChild(healthLabel);
-        killsContainer.appendChild(killsLabel);
-        killsContainer.appendChild(subtractKillButton);
-        killsContainer.appendChild(killsCount);
-        killsContainer.appendChild(addKillButton);
-        
-        unitInfoContainer.appendChild(label);
-        unitInfoContainer.appendChild(healthContainer);
-        unitInfoContainer.appendChild(killsContainer);
-        
         listItem.appendChild(unitInfoContainer);
         listItem.appendChild(removeButton);
         listElement.appendChild(listItem);
+    },
 
-        // Add to other sections with checkboxes
-        addToSection(stringId, inputValue, playerNumber);
-
-        inputField.value = ""; // Clear input field
-    } else {
-        alert("Please enter a valid string.");
-    }
-}
-function decrementKills(stringId) {
-    const mainKillsDisplay = document.getElementById(`${stringId}-kills`);
-    let currentKills = parseInt(mainKillsDisplay.textContent);
-    currentKills = Math.max(0, currentKills - 1); // Prevent negative kills
-    mainKillsDisplay.textContent = currentKills;
-
-    // Update kills in all sections
-    const sections = ['command', 'movement', 'shooting', 'charge', 'fight'];
-    sections.forEach(section => {
-        const killsDisplay = document.getElementById(`${stringId}-${section}-kills`);
-        if (killsDisplay) {
-            killsDisplay.textContent = `Kills: ${currentKills}`;
-        }
-    });
-}
-function addToSection(stringId, inputValue, playerNumber) {
-    const sections = ['command', 'movement', 'shooting', 'charge', 'fight'];
-    sections.forEach(section => {
-        const sectionList = document.getElementById(`${section}List${playerNumber}`);
-        const sectionItem = document.createElement("li");
-        sectionItem.className = "string-item";
-        sectionItem.id = `${stringId}-${section}`;
-
-        // Create container for checkbox and label
-        const checkboxContainer = document.createElement("div");
-        checkboxContainer.style.display = "flex";
-        checkboxContainer.style.alignItems = "center";
-        checkboxContainer.style.gap = "10px";
-        checkboxContainer.style.flex = "1";
+    // Create the container for unit information
+    createUnitInfoContainer(stringId, inputValue) {
+        const container = document.createElement("div");
+        container.style.display = "flex";
+        container.style.alignItems = "center";
+        container.style.gap = "10px";
+        container.style.flex = "1";
 
         const label = document.createElement("span");
         label.textContent = inputValue;
+
+        const healthContainer = this.createHealthContainer(stringId);
+        const killsContainer = this.createKillsContainer(stringId);
+
+        container.appendChild(label);
+        container.appendChild(healthContainer);
+        container.appendChild(killsContainer);
+
+        return container;
+    },
+
+    // Create health tracking container
+    createHealthContainer(stringId) {
+        const container = document.createElement("div");
+        container.className = "health-controls";
+        container.style.display = "flex";
+        container.style.alignItems = "center";
+        container.style.gap = "5px";
+
+        const input = document.createElement("input");
+        input.type = "number";
+        input.value = "100";
+        input.min = "0";
+        input.max = "100";
+        input.style.width = "60px";
+        input.onchange = () => this.updateUnitHealth(stringId, input.value);
+
+        const label = document.createElement("span");
+        label.textContent = "HP";
+
+        container.appendChild(input);
+        container.appendChild(label);
+        return container;
+    },
+
+    // Create kills tracking container
+    createKillsContainer(stringId) {
+        const container = document.createElement("div");
+        container.className = "kills-counter";
+        container.style.display = "flex";
+        container.style.alignItems = "center";
+        container.style.gap = "5px";
+
+        const label = document.createElement("span");
+        label.textContent = "Kills";
+
+        const subtractBtn = document.createElement("button");
+        subtractBtn.textContent = "-";
+        subtractBtn.style.padding = "2px 8px";
+        subtractBtn.onclick = () => this.decrementKills(stringId);
+
+        const count = document.createElement("span");
+        count.id = `${stringId}-kills`;
+        count.textContent = "0";
+        count.style.minWidth = "20px";
+        count.style.textAlign = "center";
+
+        const addBtn = document.createElement("button");
+        addBtn.textContent = "+";
+        addBtn.style.padding = "2px 8px";
+        addBtn.onclick = () => this.incrementKills(stringId);
+
+        container.append(label, subtractBtn, count, addBtn);
+        return container;
+    },
+
+    // Add the unit to all game sections
+    addToSections(stringId, inputValue, playerNumber) {
+        const sections = ['command', 'movement', 'shooting', 'charge', 'fight'];
+        sections.forEach(section => {
+            const sectionList = document.getElementById(`${section}List${playerNumber}`);
+            const sectionItem = this.createSectionItem(stringId, inputValue, section);
+            sectionList.appendChild(sectionItem);
+        });
+    },
+
+    // Create an item for a game section
+    createSectionItem(stringId, inputValue, section) {
+        const item = document.createElement("li");
+        item.className = "string-item";
+        item.id = `${stringId}-${section}`;
+
+        const container = document.createElement("div");
+        container.style.display = "flex";
+        container.style.alignItems = "center";
+        container.style.gap = "10px";
+        container.style.flex = "1";
 
         const checkbox = document.createElement("input");
         checkbox.type = "checkbox";
         checkbox.id = `${stringId}-${section}-checkbox`;
 
-        // Add health display
+        const label = document.createElement("span");
+        label.textContent = inputValue;
+
         const healthDisplay = document.createElement("span");
         healthDisplay.className = "health-display";
-        healthDisplay.textContent = "HP: 100";
         healthDisplay.id = `${stringId}-${section}-health`;
+        healthDisplay.textContent = "HP: 100";
 
-        // Add kills display
         const killsDisplay = document.createElement("span");
         killsDisplay.className = "kills-display";
-        killsDisplay.textContent = "Kills: 0";
         killsDisplay.id = `${stringId}-${section}-kills`;
+        killsDisplay.textContent = "Kills: 0";
 
-        checkboxContainer.appendChild(checkbox);
-        checkboxContainer.appendChild(label);
-        checkboxContainer.appendChild(healthDisplay);
-        checkboxContainer.appendChild(killsDisplay);
-        sectionItem.appendChild(checkboxContainer);
-        sectionList.appendChild(sectionItem);
-    });
-}
+        container.append(checkbox, label, healthDisplay, killsDisplay);
+        item.appendChild(container);
+        return item;
+    },
 
-function incrementKills(stringId) {
-    const mainKillsDisplay = document.getElementById(`${stringId}-kills`);
-    let currentKills = parseInt(mainKillsDisplay.textContent);
-    currentKills++;
-    mainKillsDisplay.textContent = currentKills;
+    // Create remove button
+    createRemoveButton(stringId, playerNumber) {
+        const button = document.createElement("button");
+        button.textContent = "Remove";
+        button.onclick = () => this.removeString(stringId, playerNumber);
+        return button;
+    },
 
-    // Update kills in all sections
-    const sections = ['command', 'movement', 'shooting', 'charge', 'fight'];
-    sections.forEach(section => {
-        const killsDisplay = document.getElementById(`${stringId}-${section}-kills`);
-        if (killsDisplay) {
-            killsDisplay.textContent = `Kills: ${currentKills}`;
-        }
-    });
-}
-
-// Keep existing functions
-function updateUnitHealth(stringId, newHealth) {
-    const healthValue = Math.max(0, Math.min(100, parseInt(newHealth)));
-    const sections = ['command', 'movement', 'shooting', 'charge', 'fight'];
-    
-    sections.forEach(section => {
-        const healthDisplay = document.getElementById(`${stringId}-${section}-health`);
-        if (healthDisplay) {
-            healthDisplay.textContent = `HP: ${healthValue}`;
-        }
-    });
-}
-
-function endTurn() {
-    const sections = ['command', 'movement', 'shooting', 'charge', 'fight'];
-    [1, 2].forEach(playerNumber => {
+    // Update unit health across all sections
+    updateUnitHealth(stringId, newHealth) {
+        const healthValue = Math.max(0, Math.min(100, parseInt(newHealth)));
+        const sections = ['command', 'movement', 'shooting', 'charge', 'fight'];
         sections.forEach(section => {
-            const sectionList = document.getElementById(`${section}List${playerNumber}`);
-            const checkboxes = sectionList.querySelectorAll('input[type="checkbox"]');
-            checkboxes.forEach(checkbox => {
-                checkbox.checked = false;
+            const display = document.getElementById(`${stringId}-${section}-health`);
+            if (display) {
+                display.textContent = `HP: ${healthValue}`;
+            }
+        });
+    },
+
+    // Increment kills counter
+    incrementKills(stringId) {
+        const display = document.getElementById(`${stringId}-kills`);
+        let kills = parseInt(display.textContent) + 1;
+        this.updateKillsDisplays(stringId, kills);
+    },
+
+    // Decrement kills counter
+    decrementKills(stringId) {
+        const display = document.getElementById(`${stringId}-kills`);
+        let kills = Math.max(0, parseInt(display.textContent) - 1);
+        this.updateKillsDisplays(stringId, kills);
+    },
+
+    // Update kills displays across all sections
+    updateKillsDisplays(stringId, kills) {
+        const mainDisplay = document.getElementById(`${stringId}-kills`);
+        mainDisplay.textContent = kills;
+
+        const sections = ['command', 'movement', 'shooting', 'charge', 'fight'];
+        sections.forEach(section => {
+            const display = document.getElementById(`${stringId}-${section}-kills`);
+            if (display) {
+                display.textContent = `Kills: ${kills}`;
+            }
+        });
+    },
+
+    // Remove a unit from all lists
+    removeString(stringId, playerNumber) {
+        document.getElementById(stringId)?.remove();
+        const sections = ['command', 'movement', 'shooting', 'charge', 'fight'];
+        sections.forEach(section => {
+            document.getElementById(`${stringId}-${section}`)?.remove();
+        });
+    },
+
+    // End turn functionality
+    endTurn() {
+        [1, 2].forEach(playerNumber => {
+            const sections = ['command', 'movement', 'shooting', 'charge', 'fight'];
+            sections.forEach(section => {
+                const list = document.getElementById(`${section}List${playerNumber}`);
+                const checkboxes = list.querySelectorAll('input[type="checkbox"]');
+                checkboxes.forEach(checkbox => checkbox.checked = false);
             });
         });
-    });
-}
+    }
+};
 
-function removeString(stringId, playerNumber) {
-    // Remove from Unit List
-    const unitList = document.getElementById(`stringList${playerNumber}`);
-    const unitItem = document.getElementById(stringId);
-    unitList.removeChild(unitItem);
-
-    // Remove from all sections
-    const sections = ['command', 'movement', 'shooting', 'charge', 'fight'];
-    sections.forEach(section => {
-        const sectionList = document.getElementById(`${section}List${playerNumber}`);
-        const sectionItem = document.getElementById(`${stringId}-${section}`);
-        if (sectionItem) {
-            sectionList.removeChild(sectionItem);
-        }
-    });
-}
-// Collapsible button 
-document.addEventListener('DOMContentLoaded', function() {
-    const collapseButtons = document.querySelectorAll('.collapse-btn');
-    
-    collapseButtons.forEach(button => {
+// Initialize event listeners when the document loads
+document.addEventListener('DOMContentLoaded', () => {
+    // Setup collapsible sections
+    document.querySelectorAll('.collapse-btn').forEach(button => {
         button.addEventListener('click', function() {
             const content = this.parentElement.nextElementSibling;
-            const isCollapsed = content.classList.contains('collapsed');
-            
-            // Toggle the collapsed state
-            content.classList.toggle('collapsed');
-            
-            // Update the button text
-            this.textContent = isCollapsed ? '-' : '+';
+            const isCollapsed = content.classList.toggle('collapsed');
+            this.textContent = isCollapsed ? '+' : '-';
         });
     });
-});
-// Keep the end turn button setup
-document.addEventListener('DOMContentLoaded', () => {
+
+    // Create and setup end turn button
     const endTurnButton = document.createElement('button');
     endTurnButton.textContent = 'End Turn';
     endTurnButton.style.cssText = 'position: fixed; bottom: 20px; right: 20px; z-index: 1000; width: auto; padding: 15px 30px;';
-    endTurnButton.onclick = endTurn;
+    endTurnButton.onclick = () => GameTracker.endTurn();
     document.body.appendChild(endTurnButton);
 });
