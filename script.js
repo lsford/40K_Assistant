@@ -1,8 +1,5 @@
-// Function to add a string to the unit list and other sections
 function addString(playerNumber) {
     let inputField, listElement, stringId;
-
-    // Determine which player's elements to target
     if (playerNumber === 1) {
         inputField = document.getElementById("inputString1");
         listElement = document.getElementById("stringList1");
@@ -13,79 +10,225 @@ function addString(playerNumber) {
         stringId = "string-" + listElement.children.length + "-2";
     }
 
-    // Get the input value and trim whitespace
     const inputValue = inputField.value.trim();
 
     if (inputValue) {
-        // Create a new list item for the unit list
+        // Create string item for Unit List
         const listItem = document.createElement("li");
-        listItem.className = "string-item"; // Apply styling class
-        listItem.id = stringId; // Assign unique ID
+        listItem.className = "string-item";
+        listItem.id = stringId;
+
+        // Create container for unit info
+        const unitInfoContainer = document.createElement("div");
+        unitInfoContainer.style.display = "flex";
+        unitInfoContainer.style.alignItems = "center";
+        unitInfoContainer.style.gap = "10px";
+        unitInfoContainer.style.flex = "1";
 
         const label = document.createElement("span");
-        label.textContent = inputValue; // Set the text of the unit
+        label.textContent = inputValue;
 
-        // Create a remove button for the unit
+        // Create health control container
+        const healthContainer = document.createElement("div");
+        healthContainer.className = "health-controls";
+        healthContainer.style.display = "flex";
+        healthContainer.style.alignItems = "center";
+        healthContainer.style.gap = "5px";
+
+        const healthInput = document.createElement("input");
+        healthInput.type = "number";
+        healthInput.value = "100";
+        healthInput.min = "0";
+        healthInput.max = "100";
+        healthInput.style.width = "60px";
+        healthInput.onchange = function() {
+            updateUnitHealth(stringId, this.value);
+        };
+
+        const healthLabel = document.createElement("span");
+        healthLabel.textContent = "HP";
+
+        // Create kills counter container
+        const killsContainer = document.createElement("div");
+        killsContainer.className = "kills-counter";
+        killsContainer.style.display = "flex";
+        killsContainer.style.alignItems = "center";
+        killsContainer.style.gap = "5px";
+
+        const killsCount = document.createElement("span");
+        killsCount.textContent = "0";
+        killsCount.id = `${stringId}-kills`;
+        killsCount.style.minWidth = "20px";
+        killsCount.style.textAlign = "center";
+
+        const killsLabel = document.createElement("span");
+        killsLabel.textContent = "Kills";
+
+        const subtractKillButton = document.createElement("button");
+        subtractKillButton.textContent = "-";
+        subtractKillButton.style.padding = "2px 8px";
+        subtractKillButton.onclick = function() {
+            decrementKills(stringId);
+        };
+
+        const addKillButton = document.createElement("button");
+        addKillButton.textContent = "+";
+        addKillButton.style.padding = "2px 8px";
+        addKillButton.onclick = function() {
+            incrementKills(stringId);
+        };
+
+        // Add remove button
         const removeButton = document.createElement("button");
-        removeButton.textContent = "Remove"; // Button label
-        removeButton.onclick = function () { removeString(stringId, playerNumber); }; // Attach click event
+        removeButton.textContent = "Remove";
+        removeButton.onclick = function () { removeString(stringId, playerNumber); };
 
-        // Append the label and button to the list item
-        listItem.appendChild(label);
+        // Assemble the components
+        healthContainer.appendChild(healthInput);
+        healthContainer.appendChild(healthLabel);
+        killsContainer.appendChild(killsLabel);
+        killsContainer.appendChild(subtractKillButton);
+        killsContainer.appendChild(killsCount);
+        killsContainer.appendChild(addKillButton);
+        
+        unitInfoContainer.appendChild(label);
+        unitInfoContainer.appendChild(healthContainer);
+        unitInfoContainer.appendChild(killsContainer);
+        
+        listItem.appendChild(unitInfoContainer);
         listItem.appendChild(removeButton);
-        // Add the list item to the unit list
         listElement.appendChild(listItem);
 
-        // Add the unit to all other phase sections
+        // Add to other sections with checkboxes
         addToSection(stringId, inputValue, playerNumber);
 
-        // Clear the input field after adding
-        inputField.value = "";
+        inputField.value = ""; // Clear input field
     } else {
-        alert("Please enter a valid string."); // Show alert if input is invalid
+        alert("Please enter a valid string.");
     }
 }
+function decrementKills(stringId) {
+    const mainKillsDisplay = document.getElementById(`${stringId}-kills`);
+    let currentKills = parseInt(mainKillsDisplay.textContent);
+    currentKills = Math.max(0, currentKills - 1); // Prevent negative kills
+    mainKillsDisplay.textContent = currentKills;
 
-// Function to add the string to different phase sections
-function addToSection(stringId, inputValue, playerNumber) {
-    // Define all phase sections
+    // Update kills in all sections
     const sections = ['command', 'movement', 'shooting', 'charge', 'fight'];
     sections.forEach(section => {
-        // Get the list for the specific section
+        const killsDisplay = document.getElementById(`${stringId}-${section}-kills`);
+        if (killsDisplay) {
+            killsDisplay.textContent = `Kills: ${currentKills}`;
+        }
+    });
+}
+function addToSection(stringId, inputValue, playerNumber) {
+    const sections = ['command', 'movement', 'shooting', 'charge', 'fight'];
+    sections.forEach(section => {
         const sectionList = document.getElementById(`${section}List${playerNumber}`);
-        const sectionItem = document.createElement("li"); // Create list item
-        sectionItem.className = "string-item"; // Apply styling class
-        sectionItem.id = `${stringId}-${section}`; // Assign unique ID for the section
+        const sectionItem = document.createElement("li");
+        sectionItem.className = "string-item";
+        sectionItem.id = `${stringId}-${section}`;
+
+        // Create container for checkbox and label
+        const checkboxContainer = document.createElement("div");
+        checkboxContainer.style.display = "flex";
+        checkboxContainer.style.alignItems = "center";
+        checkboxContainer.style.gap = "10px";
+        checkboxContainer.style.flex = "1";
 
         const label = document.createElement("span");
-        label.textContent = inputValue; // Set the text of the unit
+        label.textContent = inputValue;
 
         const checkbox = document.createElement("input");
-        checkbox.type = "checkbox"; // Create a checkbox
-        checkbox.id = `${stringId}-${section}-checkbox`; // Assign unique ID for checkbox
+        checkbox.type = "checkbox";
+        checkbox.id = `${stringId}-${section}-checkbox`;
 
-        // Append the checkbox and label to the list item
-        sectionItem.appendChild(checkbox);
-        sectionItem.appendChild(label);
-        // Add the list item to the section list
+        // Add health display
+        const healthDisplay = document.createElement("span");
+        healthDisplay.className = "health-display";
+        healthDisplay.textContent = "HP: 100";
+        healthDisplay.id = `${stringId}-${section}-health`;
+
+        // Add kills display
+        const killsDisplay = document.createElement("span");
+        killsDisplay.className = "kills-display";
+        killsDisplay.textContent = "Kills: 0";
+        killsDisplay.id = `${stringId}-${section}-kills`;
+
+        checkboxContainer.appendChild(checkbox);
+        checkboxContainer.appendChild(label);
+        checkboxContainer.appendChild(healthDisplay);
+        checkboxContainer.appendChild(killsDisplay);
+        sectionItem.appendChild(checkboxContainer);
         sectionList.appendChild(sectionItem);
     });
 }
 
-// Function to remove a string from all lists
+function incrementKills(stringId) {
+    const mainKillsDisplay = document.getElementById(`${stringId}-kills`);
+    let currentKills = parseInt(mainKillsDisplay.textContent);
+    currentKills++;
+    mainKillsDisplay.textContent = currentKills;
+
+    // Update kills in all sections
+    const sections = ['command', 'movement', 'shooting', 'charge', 'fight'];
+    sections.forEach(section => {
+        const killsDisplay = document.getElementById(`${stringId}-${section}-kills`);
+        if (killsDisplay) {
+            killsDisplay.textContent = `Kills: ${currentKills}`;
+        }
+    });
+}
+
+// Keep existing functions
+function updateUnitHealth(stringId, newHealth) {
+    const healthValue = Math.max(0, Math.min(100, parseInt(newHealth)));
+    const sections = ['command', 'movement', 'shooting', 'charge', 'fight'];
+    
+    sections.forEach(section => {
+        const healthDisplay = document.getElementById(`${stringId}-${section}-health`);
+        if (healthDisplay) {
+            healthDisplay.textContent = `HP: ${healthValue}`;
+        }
+    });
+}
+
+function endTurn() {
+    const sections = ['command', 'movement', 'shooting', 'charge', 'fight'];
+    [1, 2].forEach(playerNumber => {
+        sections.forEach(section => {
+            const sectionList = document.getElementById(`${section}List${playerNumber}`);
+            const checkboxes = sectionList.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = false;
+            });
+        });
+    });
+}
+
 function removeString(stringId, playerNumber) {
-    // Remove from the unit list
+    // Remove from Unit List
     const unitList = document.getElementById(`stringList${playerNumber}`);
     const unitItem = document.getElementById(stringId);
-    unitList.removeChild(unitItem); // Remove the unit item
+    unitList.removeChild(unitItem);
 
-    // Remove from all phase sections
+    // Remove from all sections
     const sections = ['command', 'movement', 'shooting', 'charge', 'fight'];
     sections.forEach(section => {
         const sectionList = document.getElementById(`${section}List${playerNumber}`);
         const sectionItem = document.getElementById(`${stringId}-${section}`);
         if (sectionItem) {
-            sectionList.removeChild(sectionItem); // Remove the item from the section
+            sectionList.removeChild(sectionItem);
         }
     });
 }
+
+// Keep the end turn button setup
+document.addEventListener('DOMContentLoaded', () => {
+    const endTurnButton = document.createElement('button');
+    endTurnButton.textContent = 'End Turn';
+    endTurnButton.style.cssText = 'position: fixed; bottom: 20px; right: 20px; z-index: 1000; width: auto; padding: 15px 30px;';
+    endTurnButton.onclick = endTurn;
+    document.body.appendChild(endTurnButton);
+});
