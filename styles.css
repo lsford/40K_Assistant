@@ -197,6 +197,7 @@ ul {
         padding: 10px;
         font-size: 16px; /* Prevent zoom on mobile */
     }
+ /* collapse button */   
 }.collapse-btn {
     float: right;
     background: #d4af37;
