@@ -223,7 +223,23 @@ function removeString(stringId, playerNumber) {
         }
     });
 }
-
+// Collapsible button 
+document.addEventListener('DOMContentLoaded', function() {
+    const collapseButtons = document.querySelectorAll('.collapse-btn');
+    
+    collapseButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const content = this.parentElement.nextElementSibling;
+            const isCollapsed = content.classList.contains('collapsed');
+            
+            // Toggle the collapsed state
+            content.classList.toggle('collapsed');
+            
+            // Update the button text
+            this.textContent = isCollapsed ? '-' : '+';
+        });
+    });
+});
 // Keep the end turn button setup
 document.addEventListener('DOMContentLoaded', () => {
     const endTurnButton = document.createElement('button');
