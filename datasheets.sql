@@ -1,23 +1,23 @@
 -- Create table for unit types
 CREATE TABLE unit_types (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    move CHAR(10),
+    `name` VARCHAR(255) NOT NULL,
+    `move` CHAR(10),
     weapon_skill CHAR(10),
     ballistic_skill CHAR(10),
-    attacks INT,
+    attacks VARCHAR (10),
     wounds INT,
     leadership INT,
-    save CHAR(10)
+    `save` CHAR(10)
 );
 
 -- Create table for weapons
 CREATE TABLE weapons (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    type VARCHAR(50),
-    range CHAR(10),
-    attacks INT,
+    `name` VARCHAR(255) NOT NULL,
+    `type` VARCHAR(50),
+    `range` CHAR(10),
+    attacks VARCHAR(10),
     sap CHAR(10), -- Strength Against Personnel
     sat CHAR(10), -- Strength Against Tanks
     abilities VARCHAR(255)
@@ -72,7 +72,7 @@ VALUES
 ('Armiger Warglaive', '14"', '3+', '3+', 2, 2, 6, '5+');
 
 -- Insert data into weapons
-INSERT INTO weapons (name, type, range, attacks, sap, sat, abilities)
+INSERT INTO weapons (name, type, `range`, attacks, sap, sat, abilities)
 VALUES
 ('Heavy Stubber', 'Heavy', '36"', 1, '8+', '10+', NULL),
 ('Ironstorm Missile Pod', 'Heavy', '72"', 2, '6+', '9+', 'Barrage'),
