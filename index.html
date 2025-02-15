@@ -1,128 +1,109 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Tracker</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Warhammer Game Tracker</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Player Setup</h1>
-
-    <div class="container">
-        <!-- Player 1 Column -->
-        <div class="player-column">
-            <h2>Player 1</h2>
-            <div class="player-section">
-                <label for="player1Name">Name: </label>
-                <input type="text" id="player1Name" placeholder="Enter Player 1's name">
-            </div>
-            <div class="player-section">
-                <label for="player1CP">Command Points: </label>
-                <select id="player1CP">
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                </select>
-            </div>
-            <div class="player-section">
-                <label for="inputString1">Add Unit/Vehicle: </label>
-                <input type="text" id="inputString1">
-                <button onclick="GameTracker.addString(1)">Add Unit</button>
-            </div>
-
-            <!-- Section lists for Player 1 -->
-            <h3>Unit List<button class="collapse-btn">-</button></h3>
-            <div class="collapsible-content">
-                <ul id="stringList1"></ul>
-            </div>
-            <h3>Command<button class="collapse-btn">-</button></h3>
-            <div class="collapsible-content">
-                <ul id="commandList1"></ul>
-            </div>
-            <h3>Movement<button class="collapse-btn">-</button></h3>
-            <div class="collapsible-content">
-                <ul id="movementList1"></ul>
-            </div>
-            <h3>Shooting<button class="collapse-btn">-</button></h3>
-            <div class="collapsible-content">
-                <ul id="shootingList1"></ul>
-            </div>
-            <h3>Charge<button class="collapse-btn">-</button></h3>
-            <div class="collapsible-content">
-                <ul id="chargeList1"></ul>
-            </div>
-            <h3>Fight<button class="collapse-btn">-</button></h3>
-            <div class="collapsible-content">
-                <ul id="fightList1"></ul>
-            </div>
-        </div>
-
-        <!-- Player 2 Column -->
-        <div class="player-column">
-            <h2>Player 2</h2>
-            <div class="player-section">
-                <label for="player2Name">Name: </label>
-                <input type="text" id="player2Name" placeholder="Enter Player 2's name">
-            </div>
-            <div class="player-section">
-                <label for="player2CP">Command Points: </label>
-                <select id="player2CP">
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                </select>
-            </div>
-            <div class="player-section">
-                <label for="inputString2">Add Unit/Vehicle: </label>
-                <input type="text" id="inputString2">
-                <button onclick="GameTracker.addString(2)">Add Unit</button>
-            </div>
-
-            <!-- Section lists for Player 2 -->
-            <h3>Unit List<button class="collapse-btn">-</button></h3>
-            <div class="collapsible-content">
-                <ul id="stringList2"></ul>
-            </div>
-            <h3>Command<button class="collapse-btn">-</button></h3>
-            <div class="collapsible-content">
-                <ul id="commandList2"></ul>
-            </div>
-            <h3>Movement<button class="collapse-btn">-</button></h3>
-            <div class="collapsible-content">
-                <ul id="movementList2"></ul>
-            </div>
-            <h3>Shooting<button class="collapse-btn">-</button></h3>
-            <div class="collapsible-content">
-                <ul id="shootingList2"></ul>
-            </div>
-            <h3>Charge<button class="collapse-btn">-</button></h3>
-            <div class="collapsible-content">
-                <ul id="chargeList2"></ul>
-            </div>
-            <h3>Fight<button class="collapse-btn">-</button></h3>
-            <div class="collapsible-content">
-                <ul id="fightList2"></ul>
-            </div>
-        </div>
+  <h1>Warhammer Game Tracker</h1>
+  <div class="container">
+    <!-- Player 1 Column -->
+    <div class="player-column">
+      <h2>Player 1</h2>
+      <div class="player-section">
+        <label for="player1Name">Name: </label>
+        <input type="text" id="player1Name" placeholder="Enter Player 1's name">
+      </div>
+      <div class="player-section">
+        <label for="player1CP">Command Points: </label>
+        <input type="number" id="player1CP" min="0" max="10" value="0">
+      </div>
+      <div class="player-section">
+        <label for="player1VP">Victory Points: </label>
+        <input type="number" id="player1VP" min="0" max="100" value="0">
+      </div>
+      <div class="player-section">
+        <label for="inputString1">Add Unit/Vehicle: </label>
+        <input type="text" id="inputString1">
+        <button onclick="GameTracker.addString(1)">Add Unit</button>
+      </div>
+      <!-- Section lists for Player 1 -->
+      <h3>Unit List<button class="collapse-btn">-</button></h3>
+      <div class="collapsible-content">
+        <ul id="stringList1"></ul>
+      </div>
+      <h3>Command<button class="collapse-btn">-</button></h3>
+      <div class="collapsible-content">
+        <ul id="commandList1"></ul>
+      </div>
+      <h3>Movement<button class="collapse-btn">-</button></h3>
+      <div class="collapsible-content">
+        <ul id="movementList1"></ul>
+      </div>
+      <h3>Shooting<button class="collapse-btn">-</button></h3>
+      <div class="collapsible-content">
+        <ul id="shootingList1"></ul>
+      </div>
+      <h3>Charge<button class="collapse-btn">-</button></h3>
+      <div class="collapsible-content">
+        <ul id="chargeList1"></ul>
+      </div>
+      <h3>Fight<button class="collapse-btn">-</button></h3>
+      <div class="collapsible-content">
+        <ul id="fightList1"></ul>
+      </div>
+      <button onclick="GameTracker.endTurn(1)">End Turn</button>
     </div>
-
-    <script src="script.js"></script>
+    <!-- Player 2 Column -->
+    <div class="player-column">
+      <h2>Player 2</h2>
+      <div class="player-section">
+        <label for="player2Name">Name: </label>
+        <input type="text" id="player2Name" placeholder="Enter Player 2's name">
+      </div>
+      <div class="player-section">
+        <label for="player2CP">Command Points: </label>
+        <input type="number" id="player2CP" min="0" max="10" value="0">
+      </div>
+      <div class="player-section">
+        <label for="player2VP">Victory Points: </label>
+        <input type="number" id="player2VP" min="0" max="100" value="0">
+      </div>
+      <div class="player-section">
+        <label for="inputString2">Add Unit/Vehicle: </label>
+        <input type="text" id="inputString2">
+        <button onclick="GameTracker.addString(2)">Add Unit</button>
+      </div>
+      <!-- Section lists for Player 2 -->
+      <h3>Unit List<button class="collapse-btn">-</button></h3>
+      <div class="collapsible-content">
+        <ul id="stringList2"></ul>
+      </div>
+      <h3>Command<button class="collapse-btn">-</button></h3>
+      <div class="collapsible-content">
+        <ul id="commandList2"></ul>
+      </div>
+      <h3>Movement<button class="collapse-btn">-</button></h3>
+      <div class="collapsible-content">
+        <ul id="movementList2"></ul>
+      </div>
+      <h3>Shooting<button class="collapse-btn">-</button></h3>
+      <div class="collapsible-content">
+        <ul id="shootingList2"></ul>
+      </div>
+      <h3>Charge<button class="collapse-btn">-</button></h3>
+      <div class="collapsible-content">
+        <ul id="chargeList2"></ul>
+      </div>
+      <h3>Fight<button class="collapse-btn">-</button></h3>
+      <div class="collapsible-content">
+        <ul id="fightList2"></ul>
+      </div>
+      <button onclick="GameTracker.endTurn(2)">End Turn</button>
+    </div>
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>
